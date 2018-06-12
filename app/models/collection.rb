@@ -4,6 +4,4 @@ class Collection < ActiveFedora::Base
   # You can replace these metadata if they're not suitable
   include Hyrax::BasicMetadata
   self.indexer = Hyrax::CollectionWithBasicMetadataIndexer
-
-  validates :title, presence: { message: 'Your collection must have a title.' }
 end
