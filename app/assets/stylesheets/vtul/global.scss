@@ -1,0 +1,44 @@
+body {
+  font-family: din;
+  letter-spacing: .5px;
+}
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+.text-left {
+  text-align: left;
+}
+.text-centered {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+a.logo {
+  font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-weight: 600;
+  font-size: 18px;
+  height: 40px;
+  width: 140px;
+  color: rgba(252, 71, 59, 1.00);
+  -webkit-transform: rotateZ(270deg);
+  transform: rotateZ(270deg);
+  text-transform: uppercase;
+  position: fixed;
+  z-index: 1001;
+  padding: 0;
+  left: 0;
+  top: 74px;
+  margin: 0;
+  text-align: center;
+  transition: 0.4s all ease;
+}
+a.logo:hover {
+  transform: scale(1.1) rotateZ(270deg); 
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+}
+a.logo, a.logo:hover, a.logo:active, a.logo:visited {
+  text-decoration: none;
+}
