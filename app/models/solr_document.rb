@@ -25,40 +25,4 @@ class SolrDocument
   # Do content negotiation for AF models. 
 
   use_extension( Hydra::ContentNegotiation )
-
-  def composer
-    self[Solrizer.solr_name('composer')]
-  end
-
-  def performer
-    self[Solrizer.solr_name('performer')]
-  end
-
-  def instruments
-    self[Solrizer.solr_name('instruments')]
-  end
-
-  def date
-    self[Solrizer.solr_name('date')]
-  end
-
-  def tags
-    self[Solrizer.solr_name('tags')]
-  end
-
-  def length
-    self[Solrizer.solr_name('length')]
-  end
-
-  def genre
-    self[Solrizer.solr_name('genre')]
-  end
-
-  def software
-    self[Solrizer.solr_name('software')]
-  end
-
-  def medium
-    self[Solrizer.solr_name('medium')]
-  end
 end

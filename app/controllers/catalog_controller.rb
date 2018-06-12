@@ -31,7 +31,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       qt: "search",
       rows: 10,
-      qf: "title_tesim description_tesim composer_tesim performer_tesim, tags_tesim"
+      qf: "title_tesim description_tesim creator_tesim keyword_tesim"
     }
 
     # solr field configuration for document/show views
@@ -41,12 +41,12 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 2
-    config.add_facet_field solr_name("genre", :facetable), label: "Genre", limit: 5
-    config.add_facet_field solr_name("composer", :facetable), label: "Composer", limit: 5
-    config.add_facet_field solr_name("performer", :facetable), label: "Performer", limit: 5
-    config.add_facet_field solr_name("instruments", :facetable), label: "Instruments", limit: 5
-    config.add_facet_field solr_name("tags", :facetable), label: "Tags", limit: 5
+    config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 5
+    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
+    config.add_facet_field solr_name("creator", :facetable), limit: 5
+    config.add_facet_field solr_name("contributor", :facetable), label: "Contributor", limit: 5
+    config.add_facet_field solr_name("keyword", :facetable), limit: 5
+    config.add_facet_field solr_name("subject", :facetable), limit: 5
     config.add_facet_field solr_name("language", :facetable), limit: 5
     config.add_facet_field solr_name("based_near_label", :facetable), limit: 5
     config.add_facet_field solr_name("publisher", :facetable), limit: 5
@@ -65,24 +65,15 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: 'name', if: false
-    config.add_index_field solr_name("composer", :stored_searchable), label: "Composer", link_to_search: solr_name("composer", :facetable)
-    config.add_index_field solr_name("performer", :stored_searchable), label: "Performer", link_to_search: solr_name("performer", :facetable)
-
     config.add_index_field solr_name("description", :stored_searchable), itemprop: 'description', helper_method: :iconify_auto_link
-
-    config.add_index_field solr_name("instruments", :stored_searchable), label: "Instruments", link_to_search: solr_name("instruments", :facetable)
-    config.add_index_field solr_name("date", :stored_searchable), label: "Date"
-    config.add_index_field solr_name("tags", :stored_searchable), label: "Tags", link_to_search: solr_name("tags", :facetable)
-    config.add_index_field solr_name("length", :stored_searchable), label: "Length"
-    config.add_index_field solr_name("genre", :stored_searchable), label: "Genre", link_to_search: solr_name("Genre", :facetable)
-    config.add_index_field solr_name("software", :stored_searchable), label: "Software"
-    config.add_index_field solr_name("medium", :stored_searchable), label: "Medium"
-
+    config.add_index_field solr_name("keyword", :stored_searchable), itemprop: 'keywords', link_to_search: solr_name("keyword", :facetable)
+    config.add_index_field solr_name("subject", :stored_searchable), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
+    config.add_index_field solr_name("creator", :stored_searchable), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
     config.add_index_field solr_name("contributor", :stored_searchable), itemprop: 'contributor', link_to_search: solr_name("contributor", :facetable)
     config.add_index_field solr_name("proxy_depositor", :symbol), label: "Depositor", helper_method: :link_to_profile
     config.add_index_field solr_name("depositor"), label: "Owner", helper_method: :link_to_profile
     config.add_index_field solr_name("publisher", :stored_searchable), itemprop: 'publisher', link_to_search: solr_name("publisher", :facetable)
-    config.add_index_field solr_name("based_near", :stored_searchable), itemprop: 'contentLocation', link_to_search: solr_name("based_near", :facetable)
+    config.add_index_field solr_name("based_near_label", :stored_searchable), itemprop: 'contentLocation', link_to_search: solr_name("based_near_label", :facetable)
     config.add_index_field solr_name("language", :stored_searchable), itemprop: 'inLanguage', link_to_search: solr_name("language", :facetable)
     config.add_index_field solr_name("date_uploaded", :stored_sortable, type: :date), itemprop: 'datePublished', helper_method: :human_readable_date
     config.add_index_field solr_name("date_modified", :stored_sortable, type: :date), itemprop: 'dateModified', helper_method: :human_readable_date
@@ -104,7 +95,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("creator", :stored_searchable)
     config.add_show_field solr_name("contributor", :stored_searchable)
     config.add_show_field solr_name("publisher", :stored_searchable)
-    config.add_show_field solr_name("based_near", :stored_searchable)
+    config.add_show_field solr_name("based_near_label", :stored_searchable)
     config.add_show_field solr_name("language", :stored_searchable)
     config.add_show_field solr_name("date_uploaded", :stored_searchable)
     config.add_show_field solr_name("date_modified", :stored_searchable)
@@ -243,7 +234,7 @@ class CatalogController < ApplicationController
 
     config.add_search_field('based_near') do |field|
       field.label = "Location"
-      solr_name = solr_name("based_near", :stored_searchable)
+      solr_name = solr_name("based_near_label", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

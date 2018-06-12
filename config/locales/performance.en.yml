@@ -1,8 +1,0 @@
-en:
-  hyrax:
-    icons:
-      performance:     'fa fa-file-text-o'
-    select_type:
-      performance:
-        description:        "Performance works"
-        name:               "Performance"

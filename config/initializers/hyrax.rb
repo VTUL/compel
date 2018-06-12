@@ -1,8 +1,4 @@
 Hyrax.config do |config|
-  # Injected via `rails g hyrax:work Composition`
-  config.register_curation_concern :composition
-  # Injected via `rails g hyrax:work Performance`
-  config.register_curation_concern :performance
   # Register roles that are expected by your implementation.
   # @see Hyrax::RoleRegistry for additional details.
   # @note there are magical roles as defined in Hyrax::RoleRegistry::MAGIC_ROLES
