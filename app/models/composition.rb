@@ -11,7 +11,7 @@ class Composition < ActiveFedora::Base
   validates :composer, presence: { message: 'Your composition must have a composer.' }
   validates :instruments, presence: { message: 'Your composition must have instruments.' }
 
-  #self.human_readable_type = 'Composition'
+  self.human_readable_type = 'Composition'
 
   property :composer, predicate: ::RDF::Vocab::DC11.creator do |index|
     index.as :stored_searchable, :facetable
