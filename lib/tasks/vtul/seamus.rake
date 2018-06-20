@@ -63,19 +63,20 @@ namespace :seamus do
         puts "Filename: " + article.filename
         puts "Published Date: " + article.publishedDate
         puts "Tags: " + article.tags.to_s
-        puts article.body
+        puts "Body/Content: "+ article.body
+        puts "Picture: " + article.picture if article.picture != nil
 
         puts "Metadata: "
         puts "-- Views Template: " + article.metadata.views_template
         puts "-- Subtitle: " + article.metadata.subtitle
         puts "-- Year of Composition: " + article.metadata.year_of_composition
-        puts "-- Instrumentation: " + article.metadata.instrumentation
+        puts "-- Instrumentation: [" + article.metadata.instrumentation.join("|") +"]"
         puts "-- Type of Electronics: " + article.metadata.type_of_electronics
         puts "-- Num of Channels: " + article.metadata.num_of_channels
         puts "-- Duration: " + article.metadata.duration
         puts "-- Video Component: " + article.metadata.video_component
-        puts "-- Performance Clip: " + article.metadata.performance_clip
         puts "-- Link to Score Resources: " + article.metadata.link_to_score_resources
+        puts "-- Performance Clip: " + article.metadata.performance_clip
         puts "-- Link to Recording: " + article.metadata.link_to_recording
         puts
       end

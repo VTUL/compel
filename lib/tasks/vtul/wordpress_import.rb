@@ -18,6 +18,17 @@ end
 class WordPress
 
   class Article
+
+    class Metadata
+      attr_accessor :views_template, :subtitle, :year_of_composition, :instrumentation, :type_of_electronics,
+                    :num_of_channels, :duration, :video_component, :performance_clip, :link_to_score_resources,
+                    :link_to_recording
+
+      def initialize(options={})
+        options.each{|k,v|send("#{k}=",v)}
+      end
+    end
+
     attr_accessor :title, :body, :owner, :status, :url, :filename, :publishedDate, :date, :year, :month, :tags, :picture, :comments, :metadata, :encoded_content 
 
     def initialize(options={})
@@ -36,18 +47,7 @@ class WordPress
       options.each{|k,v|send("#{k}=",v)}
     end
   end
-  
-  class Metadata
-    attr_accessor :views_template, :subtitle, :year_of_composition, :instrumentation, :type_of_electronics, 
-                  :num_of_channels, :duration, :video_component, :performance_clip, :link_to_score_resources, 
-                  :link_to_recording
-
-    def initialize(options={})
-      options.each{|k,v|send("#{k}=",v)}
-    end
-  end
-
-
+ 
   # Removed garbage created by MS Word.
   def self.removeWordGarbage(html)
     # start by completely removing all unwanted tags
@@ -103,18 +103,17 @@ class WordPress
 
       title = article.at('title').content
 
+      encoded_content = article.xpath('content:encoded').first.content.to_s
       body = article.xpath('content:encoded').first.content.to_s
-
-      # body = body.gsub(/^(<img.*>)$/i,'')   # Remove first img tag
       body = body.gsub(/^(<img [^>]*>)/i,'')  # Remove first img tag
+
       picture = nil
-      if($1)
+      if ($1)
         img = $1
         picture = img[/src=\"([^\"]*)\"/i,1] # ...and store img url
         picture = picture.sub(/\?.*$/,'')
       end
-
-      if(picture == nil and body =~ /<a href[^>]*><img .*src[^"]"([^"]*).*<\/a>/i)
+      if (picture == nil and body =~ /<a href[^>]*><img .*src[^"]"([^"]*).*<\/a>/i)
         picture = $1
         body = body.sub(/<a href[^>]*><img .*src[^"]"([^"]*).*<\/a>/i,'')
       end
@@ -126,6 +125,7 @@ class WordPress
       status = article.xpath('wp:status').first.content.to_s
       url =  article.at('link').content
       filename = url[/\/([^\/]*)\/$/,0].to_s.gsub("/","")
+
       publishedDate = article.at('pubDate').content
       date = Time.parse(publishedDate)
       year = date.year.to_s
@@ -154,9 +154,7 @@ class WordPress
           comments << comment
         end
       end
-
-      encoded_content = article.xpath('content:encoded').first.content.to_s
-      
+ 
       article_metadata = Hash.new
       wp_postmeta = article.xpath('wp:postmeta')
       wp_postmeta.each do |metadata|
@@ -164,39 +162,47 @@ class WordPress
         value = metadata.xpath('wp:meta_value').first.content.to_s
         article_metadata[key] = value        
       end
-      article_metadata = WordPress::Metadata.new(views_template: article_metadata['_views_template'],
-                                                 subtitle: article_metadata['wpcf-subtitle'],
-                                                 year_of_composition: article_metadata['wpcf-year-of-composition'],
-                                                 instrumentation: article_metadata['wpcf-instrumentation'], 
-                                                 type_of_electronics: article_metadata['wpcf-type-of-electronics'], 
-                                                 num_of_channels: article_metadata['wpcf-number-of-channels'], 
-                                                 duration: article_metadata['wpcf-length-of-work'],
-                                                 video_component: article_metadata['wpcf-video-component'],
-                                                 performance_clip: article_metadata['wpcf-performance-clip'],
-                                                 link_to_score_resources: article_metadata['wpcf-link-to-score-resources'],
-                                                 link_to_recording: article_metadata['wpcf-link-to-recording'])
 
-      if(status == "publish")
-        wp_article = WordPress::Article.new(:title => title,
-                                            :body => body,
-                                            :owner => owner,
-                                            :status => status,
-                                            :url => url,
-                                            :filename => filename,
-                                            :publishedDate => publishedDate,
-                                            :date => date,
-                                            :year => year,
-                                            :month => month,
-                                            :tags => tags,
-                                            :picture => picture,
-                                            :comments => comments,
-                                            :metadata => article_metadata,
-                                            :encoded_content => encoded_content)
-        yield wp_article
-      end
+      # Do some rudamentary parsing of the instruments if there are no parenthesis in there.
+      # NOTE: The Wordpress instrumentation appears to be a single free-form field, 
+      #       whereas the COMPEL Instruments are segmented. Because of this, it seems easier to 
+      #       leave any instrumentation as is when there are parenthesis,
+      #       and potentially leave things up to manual clean up of these entries afterwards 
+      #       if there's time.
+      instruments = [article_metadata['wpcf-instrumentation']]
+      instruments = article_metadata['wpcf-instrumentation'].gsub( ' and ', ',').split(/[,+;&]/) if article_metadata['wpcf-instrumentation'][/\(.*?\)/] == nil
+      instruments.map! {|instr| instr.strip} # remove leading/trailing whitespace
+      instruments = instruments.reject { |instr| instr.empty? } # remove blank instruments
+  
+      article_metadata = WordPress::Article::Metadata.new(views_template: article_metadata['_views_template'],
+                           subtitle: article_metadata['wpcf-subtitle'],
+                           year_of_composition: article_metadata['wpcf-year-of-composition'],
+                           instrumentation: instruments, 
+                           type_of_electronics: article_metadata['wpcf-type-of-electronics'], 
+                           num_of_channels: article_metadata['wpcf-number-of-channels'], 
+                           duration: article_metadata['wpcf-length-of-work'],
+                           video_component: article_metadata['wpcf-video-component'],
+                           performance_clip: article_metadata['wpcf-performance-clip'],
+                           link_to_score_resources: article_metadata['wpcf-link-to-score-resources'],
+                           link_to_recording: article_metadata['wpcf-link-to-recording'])
 
+      wp_article = WordPress::Article.new(:title => title,
+                                          :body => body,
+                                          :owner => owner,
+                                          :status => status,
+                                          :url => url,
+                                          :filename => filename,
+                                          :publishedDate => publishedDate,
+                                          :date => date,
+                                          :year => year,
+                                          :month => month,
+                                          :tags => tags,
+                                          :picture => picture,
+                                          :comments => comments,
+                                          :metadata => article_metadata,
+                                          :encoded_content => encoded_content)
+      yield wp_article
     end
 
   end
-
 end
