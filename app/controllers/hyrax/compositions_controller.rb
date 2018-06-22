@@ -9,10 +9,10 @@ module Hyrax
     self.curation_concern_type = ::Composition
 
     # Use this line if you want to use a custom presenter
-    self.show_presenter = MusicWorkPresenter
+    self.show_presenter = Hyrax::CompositionPresenter
 
     def new
-      curation_concern.composer = [current_user.user_key]
+      curation_concern.creator = [current_user.user_key]
       super
     end
 

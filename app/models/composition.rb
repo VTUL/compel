@@ -8,14 +8,10 @@ class Composition < ActiveFedora::Base
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your composition must have a title.' }
-  validates :composer, presence: { message: 'Your composition must have a composer.' }
-  validates :instruments, presence: { message: 'Your composition must have instruments.' }
+  validates :creator, presence: { message: 'Your composition must have a composer.' }
+  validates :subject, presence: { message: 'Your composition must have instruments.' }
 
   self.human_readable_type = 'Composition'
-
-  property :composer, predicate: ::RDF::Vocab::DC11.creator do |index|
-    index.as :stored_searchable, :facetable
-  end
 
   has_many :performances
 

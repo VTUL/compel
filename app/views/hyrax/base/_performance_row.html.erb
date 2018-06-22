@@ -1,7 +1,7 @@
 <tr>
   <th><%= link_to performance.title.first, "/concern/performances/#{performance.id}" %></th>
   <td>
-    Performed by: <%= link_to performance.performer.first, "/users/#{performance.performer.first.gsub('.','-dot-')}" %>
+    Performed by: <%= link_to performance.contributor.first, "/users/#{performance.contributor.first.gsub('.','-dot-')}" %>
   </td>
 </tr>
 

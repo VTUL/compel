@@ -5,46 +5,50 @@ en:
       fields:
         facet:
           based_near_label_sim: Location
-          creator_sim: Creator
+          creator_sim: Composer
+          contributor_sim: Performer
+          venue_sim: Venue
           file_format_sim: Format
           generic_type_sim: Type
-          keyword_sim: Keyword
+          keyword_sim: Tags
           language_sim: Language
           publisher_sim: Publisher
-          subject_sim: Subject
+          subject_sim: Instruments
+          resource_type_sim: Genre
+          source_sim: Score
+          duration_sim: Duration
         index:
           based_near_tesim: Location
           contributor_tesim: Contributor
-          creator_tesim: Creator
+          creator_tesim: Composer
+          contributor_tesim: Performer
+          venue_tesim: Venue
           date_created_tesim: Date Created
           date_modified_dtsi: Date Modified
           date_uploaded_dtsi: Date Uploaded
           description_tesim: Description
           file_format_tesim: File Format
           identifier_tesim: Identifier
-          keyword_tesim: Keyword
+          keyword_tesim: Tags
           language_tesim: Language
           license_tesim: License
           publisher_tesim: Publisher
           rights_statement_tesim: Rights Statement
-          subject_tesim: Subject
+          subject_tesim: Instruments
+          resource_type_tesim: Genre
+          source_tesim: Score
+          duration_tesim: Duration
         show:
-          based_near_tesim: Location
-          contributor_tesim: Contributor
-          creator_tesim: Creator
-          date_created_tesim: Date Created
-          date_modified_dtsi: Date Modified
-          date_uploaded_dtsi: Date Uploaded
-          description_tesim: Description
-          file_format_tesim: File Format
-          identifier_tesim: Identifier
-          keyword_tesim: Keyword
-          language_tesim: Language
-          license_tesim: License
-          publisher_tesim: Publisher
-          rights_statement_tesim: Rights Statement
-          subject_tesim: Subject
-          title_tesim: Title
+          creator: Composer
+          contributor: Performer
+          venue: Venue
+          keyword: Tags
+          subject: Instruments
+          resource_type: Genre
+          source: Score
+          duration: Duration
+          technical_specs: Technical Specs
+          program_notes: Program Notes
   hyrax:
     account_name: My Institution Account Id
     directory:

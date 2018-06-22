@@ -1,6 +1,6 @@
-module TagsService
+module KeywordsService
   mattr_accessor :authority
-  self.authority = Qa::Authorities::Local.subauthority_for('tags')
+  self.authority = Qa::Authorities::Local.subauthority_for('keywords')
 
   def self.select_all_options
     authority.all.map do |element|

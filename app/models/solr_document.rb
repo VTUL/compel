@@ -26,39 +26,27 @@ class SolrDocument
 
   use_extension( Hydra::ContentNegotiation )
 
-  def composer
-    self[Solrizer.solr_name('composer')]
-  end
-
-  def performer
-    self[Solrizer.solr_name('performer')]
-  end
-
-  def instruments
-    self[Solrizer.solr_name('instruments')]
+  def venue
+    self[Solrizer.solr_name('venue')]
   end
 
   def date
     self[Solrizer.solr_name('date')]
   end
 
-  def tags
-    self[Solrizer.solr_name('tags')]
-  end
-
-  def length
-    self[Solrizer.solr_name('length')]
-  end
-
-  def genre
-    self[Solrizer.solr_name('genre')]
-  end
-
-  def software
-    self[Solrizer.solr_name('software')]
+  def duration
+    self[Solrizer.solr_name('duration')]
   end
 
   def medium
     self[Solrizer.solr_name('medium')]
+  end
+
+  def technical_specs
+    self[Solrizer.solr_name('technical_specs')]
+  end
+
+  def program_notes
+    self[Solrizer.solr_name('program_notes')]
   end
 end

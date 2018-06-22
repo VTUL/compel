@@ -9,10 +9,10 @@ module Hyrax
     self.curation_concern_type = ::Performance
 
     # Use this line if you want to use a custom presenter
-    self.show_presenter = MusicWorkPresenter
+    self.show_presenter = Hyrax::PerformancePresenter
 
     def new
-      curation_concern.performer = [current_user.user_key]
+      curation_concern.contributor = [current_user.user_key]
       super
     end
 
@@ -21,7 +21,7 @@ module Hyrax
       perf = Performance.find(params[:id])
       @composition = perf.composition
       if !@composition.nil?
-        @composer_link = "/users/#{@composition.composer.first.gsub('.', '-dot-')}"
+        @composer_link = "/users/#{@composition.creator.first.gsub('.', '-dot-')}"
       end
     end
   end

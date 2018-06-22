@@ -4,7 +4,7 @@
     <strong>Performance of:</strong> <%= link_to "#{composition.title.first}", "/concern/compositions/#{composition.id}" %>
   </div>
   <div>
-    <strong>Composed by:</strong> <span class="composition-composer"><%= link_to composition.composer.first, composer_link %></span>
+    <strong>Composed by:</strong> <span class="composition-composer"><%= link_to composition.creator.first, composer_link %></span>
   </div>
   <br />
 <% end %>

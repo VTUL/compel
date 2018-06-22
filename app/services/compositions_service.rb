@@ -10,7 +10,7 @@ module CompositionsService
 
   def self.label(id)
     comp = authority.find(id)
-    "#{comp.title.first} | #{comp.composer.first}"
+    "#{comp.title.first} | #{comp.creator.first}"
   end
 
 end

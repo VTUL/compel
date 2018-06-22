@@ -9,14 +9,10 @@ class Performance < ActiveFedora::Base
   # self.valid_child_concerns = []
 
   validates :title, presence: { message: 'Your performance must have a title.' }
-  validates :performer, presence: { message: 'Your performance must have a performer.' }
-  validates :instruments, presence: { message: 'Your performance must have instruments.' }
+  validates :contributor, presence: { message: 'Your performance must have a performer.' }
+  validates :subject, presence: { message: 'Your performance must have instruments.' }
 
   self.human_readable_type = 'Performance'
-
-  property :performer, predicate: ::RDF::Vocab::DC11.creator do |index|
-    index.as :stored_searchable, :facetable
-  end
 
   belongs_to :composition, predicate: ActiveFedora::RDF::Fcrepo::RelsExt.isPartOf
 
