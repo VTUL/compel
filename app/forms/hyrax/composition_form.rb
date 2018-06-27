@@ -7,7 +7,7 @@ module Hyrax
     self.terms += [:duration, :medium, :resource_type,
                    :technical_specs, :program_notes]
 
-    self.required_fields = [:title, :subject]
+    self.required_fields = [:title, :subject, :creator]
 
     # composer, title, instruments, description, tags,
     # genre, date_created, duration, score, program_notes,

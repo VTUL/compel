@@ -60,3 +60,12 @@ en:
     institution_name_full: Virginia Tech
     product_name: COMPEL
     product_twitter_handle: "@SamveraRepo"
+  simple_form:
+    labels:
+      defaults:
+        resource_type: Genre
+        subject: Instruments
+        source: Score
+        contributor: Performer
+        creator: Composer
+        date: Date of Performance

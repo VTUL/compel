@@ -7,7 +7,8 @@ module Hyrax
     self.terms += [:composition_id, :venue, :date, :duration,
                    :resource_type, :medium]
 
-    self.required_fields = [:title, :subject]
+    self.required_fields = [:title, :subject, :creator, 
+                            :contributor]
 
     # composer, title, venue, date of performance, 
     # date of composition creation, performers, 
