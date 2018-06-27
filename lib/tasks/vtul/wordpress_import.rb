@@ -75,7 +75,6 @@ class WordPress
   # Parse wordpress xml data, yields wp:author objects
   def self.parse_wp_authors(content, &block)
     doc = Nokogiri::XML(content)
-    puts "Debug: parse wp:author objects"
     doc.xpath('//wp:author').each do |author|
       id = author.xpath('wp:author_id').first.content.to_s
       login = author.xpath('wp:author_login').first.content.to_s
@@ -98,7 +97,6 @@ class WordPress
   # Parse wordpress xml data, yields Article objects
   def self.parse_items(content, &block)
     doc = Nokogiri::XML(content)
-    puts "Debug: parse item"
     doc.xpath('//item').each do |article|
 
       title = article.at('title').content
