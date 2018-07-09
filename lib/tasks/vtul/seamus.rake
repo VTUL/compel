@@ -124,4 +124,61 @@ namespace :seamus do
       puts 'To run: bin/rake seamus:import_items["input.xml"]'
     end
   end
+
+  desc 'Cleanup for SEAMUS import. Must be run AFTER import_authors and import_items'
+  task cleanup_works: :environment do
+    # Assumption for this task: If the depositor isn't lowercase, then the related creators and contributors are also not lowercase
+    Composition.all.each do | comp |
+      if comp.depositor != comp.depositor.downcase
+        puts "Downcasing Composition depositor: " + comp.depositor + " for composition id: " + comp.id
+        comp.depositor = comp.depositor.downcase
+        comp.creator = comp.creator.map(&:downcase)  
+        comp.save!
+      end
+
+      pruned_description = comp.description.reject { |e| e.to_s.empty? }
+      if comp.description != pruned_description
+        puts "Pruning empty descriptions for composition id: " + comp.id
+        comp.description = pruned_description 
+        comp.save!
+      end
+ 
+      pruned_score = comp.source.reject { |e| e.to_s.empty? }
+      if comp.source != pruned_score
+        puts "Pruning empty scores for composition id: " + comp.id
+        comp.source = pruned_score 
+        comp.save!
+      end
+
+      if comp.duration == ""
+        puts "Setting empty duration to nil for composition id: " + comp.id
+        comp.duration = nil
+        comp.save!
+      end
+    end
+
+    Performance.all.each do | perf |
+      if perf.depositor != perf.depositor.downcase
+        puts "Downcasing Performance depositor: " + perf.depositor + " for performance id: " + perf.id
+        perf.depositor = perf.depositor.downcase
+        perf.creator = perf.creator.map(&:downcase)
+        perf.contributor = perf.contributor.map(&:downcase)
+        perf.save!
+      end
+
+      pruned_description = perf.description.reject { |e| e.to_s.empty? }
+      if perf.description != pruned_description
+        puts "Pruning empty descriptions for performance id: " + perf.id
+        perf.description = pruned_description 
+        perf.save!
+      end
+
+      if perf.duration == ""
+        puts "Setting empty duration to nil for performance id: " + perf.id
+        perf.duration = nil
+        perf.save!
+      end
+    end
+  end
+
 end
