@@ -129,56 +129,40 @@ namespace :seamus do
   task cleanup_works: :environment do
     # Assumption for this task: If the depositor isn't lowercase, then the related creators and contributors are also not lowercase
     Composition.all.each do | comp |
-      if comp.depositor != comp.depositor.downcase
-        puts "Downcasing Composition depositor: " + comp.depositor + " for composition id: " + comp.id
-        comp.depositor = comp.depositor.downcase
-        comp.creator = comp.creator.map(&:downcase)  
-        comp.save!
-      end
-
-      pruned_description = comp.description.reject { |e| e.to_s.empty? }
-      if comp.description != pruned_description
-        puts "Pruning empty descriptions for composition id: " + comp.id
-        comp.description = pruned_description 
-        comp.save!
-      end
- 
-      pruned_score = comp.source.reject { |e| e.to_s.empty? }
-      if comp.source != pruned_score
-        puts "Pruning empty scores for composition id: " + comp.id
-        comp.source = pruned_score 
-        comp.save!
-      end
-
-      if comp.duration == ""
-        puts "Setting empty duration to nil for composition id: " + comp.id
-        comp.duration = nil
-        comp.save!
-      end
+      clean_up_work(comp)
     end
 
     Performance.all.each do | perf |
-      if perf.depositor != perf.depositor.downcase
-        puts "Downcasing Performance depositor: " + perf.depositor + " for performance id: " + perf.id
-        perf.depositor = perf.depositor.downcase
-        perf.creator = perf.creator.map(&:downcase)
-        perf.contributor = perf.contributor.map(&:downcase)
-        perf.save!
-      end
-
-      pruned_description = perf.description.reject { |e| e.to_s.empty? }
-      if perf.description != pruned_description
-        puts "Pruning empty descriptions for performance id: " + perf.id
-        perf.description = pruned_description 
-        perf.save!
-      end
-
-      if perf.duration == ""
-        puts "Setting empty duration to nil for performance id: " + perf.id
-        perf.duration = nil
-        perf.save!
-      end
+      clean_up_work(perf)
     end
   end
 
+  def clean_up_work(work)
+    if work.depositor != work.depositor.downcase
+      puts "Downcasing depositor: " + work.depositor + " for work id: " + work.id
+      work.depositor = work.depositor.downcase
+      work.creator = work.creator.map(&:downcase)
+      work.save!
+    end
+
+    pruned_description = work.description.reject { |e| e.to_s.empty? }
+    if work.description != pruned_description
+      puts "Pruning empty descriptions for work id: " + work.id
+      work.description = pruned_description
+      work.save!
+    end
+
+    pruned_score = work.source.reject { |e| e.to_s.empty? }
+    if work.source != pruned_score
+      puts "Pruning empty scores for work id: " + work.id
+      work.source = pruned_score
+      work.save!
+    end
+
+    if work.duration == ""
+      puts "Setting empty duration to nil for work id: " + work.id
+      work.duration = nil
+      work.save!
+    end
+  end
 end
