@@ -50,3 +50,7 @@ a.logo, a.logo:hover, a.logo:active, a.logo:visited {
 .red {
   color: $red;
 }
+
+#content-wrapper > .col-xs-12 {
+  margin-bottom: 400px;
+}
