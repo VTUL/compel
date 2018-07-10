@@ -36,7 +36,8 @@ module Hyrax
       private
         def user_params
           params.require(:user).permit(:display_name, :personal_statement, :avatar, :facebook_handle, :twitter_handle,
-                                       :googleplus_handle, :linkedin_handle, :remove_avatar, :orcid)
+                                       :googleplus_handle, :linkedin_handle, :remove_avatar, :orcid, 
+                                       :soundcloud_handle)
         end
     end
   end

@@ -125,6 +125,35 @@ namespace :seamus do
     end
   end
 
+  desc 'Cleanup for SEAMUS import. Must be run AFTER import_authors'
+  task cleanup_users: :environment do
+    User.all.each do | u |
+      cleanup_user(u)
+    end
+  end
+
+  def cleanup_user(user)
+    user.user_links.each do |ulink|
+      handle = seamus_handle(ulink)
+      if !handle.blank?
+        puts "Adding SoundCloud handle for User: "+user.email
+        user.soundcloud_handle = handle
+        user.save!
+        puts "... Removing user link: " + ulink.link
+        ulink.destroy!
+      end
+    end
+  end
+
+  def seamus_handle(user_link)
+    user_link_uri = URI(user_link.link) 
+    if (user_link_uri.host == "www.soundcloud.com" || user_link_uri.host == "soundcloud.com")
+      return user_link_uri.path.split("/").reject{ |s| s.empty? }.first
+    else
+      return nil
+    end
+  end
+
   desc 'Cleanup for SEAMUS import. Must be run AFTER import_authors and import_items'
   task cleanup_works: :environment do
     # Assumption for this task: If the depositor isn't lowercase, then the related creators and contributors are also not lowercase

@@ -33,6 +33,13 @@
   <dd><%= link_to "#{@linkedInUrl}", "#{@linkedInUrl}", { target: '_blank' } %></dd>
 <% end %>
 
+<%# COMPEL Modification: begin %>
+<% if user.soundcloud_handle.present? %>
+  <dt><i class="fa fa-soundcloud"></i> SoundCloud</dt>
+  <dd><%= link_to user.soundcloud_handle, "https://www.soundcloud.com/#{user.soundcloud_handle}", { target: '_blank' } %></dd>
+<% end %>
+<%# COMPEL Modification: end %>
+
   <dt><i class="fa fa-envelope"></i> Email</dt>
   <dd><%= mail_to user.email %></dd>
 
