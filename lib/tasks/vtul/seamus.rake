@@ -129,19 +129,20 @@ namespace :seamus do
   task cleanup_works: :environment do
     # Assumption for this task: If the depositor isn't lowercase, then the related creators and contributors are also not lowercase
     Composition.all.each do | comp |
-      clean_up_work(comp)
+      cleanup_work(comp)
     end
 
     Performance.all.each do | perf |
-      clean_up_work(perf)
+      cleanup_work(perf)
     end
   end
 
-  def clean_up_work(work)
+  def cleanup_work(work)
     if work.depositor != work.depositor.downcase
       puts "Downcasing depositor: " + work.depositor + " for work id: " + work.id
       work.depositor = work.depositor.downcase
       work.creator = work.creator.map(&:downcase)
+      work.contributor = work.contributor.map(&:downcase)
       work.save!
     end
 
