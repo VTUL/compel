@@ -6,11 +6,13 @@
   .input-group {
     font-size: 16px;
   }
+  #search-submit-header {
+    background-color: white;
+  }
   input, button {
     height: 30px;
     border: none;
     color: #323232;
-    background-color: white;
     box-shadow: none;
     border-radius: 0;
     font-size: 16px;

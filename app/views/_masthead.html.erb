@@ -1,10 +1,22 @@
 <%# Modified from Hyrax Gem 2.1.0 %>
 <%= render '/shared/select_work_type_modal' if create_work_presenter.many? %>
-<nav id="masthead" class="navbar navbar-inverse navbar-static-top" role="navigation">
+<nav id="masthead" class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
-    <div class="home-header col-xs-12 col-md-5"><%= link_to(root_path) do "<h1>COMPEL</h1>".html_safe end %><h2>Computer<br />Music Library</h2></div>
+
+    <div class="col-xs-1 hidden-lg">
+      <button type="button" class="navbar-toggle collapsed"  aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="home-header col-xs-11 col-md-5"><%= link_to(root_path) do "<h1>COMPEL</h1>".html_safe end %><h2>Computer<br />Music Library</h2></div>
+
     <div class="hidden-md col-lg-2"></div>
-    <div class="search-wrapper col-xs-12 col-md-5">
+
+    <div class="search-wrapper col-xs-11 col-md-5">
       <%= render partial: '/catalog/search_form' %>
     </div>
   </div>

@@ -3,6 +3,7 @@
 html { padding: 0; }
 body {
   font-family: Raleway-Regular;
+  font-size: 16px;
   letter-spacing: .5px;
   padding: 0;
 }
@@ -53,4 +54,8 @@ a.logo, a.logo:hover, a.logo:active, a.logo:visited {
 
 #content-wrapper > .col-xs-12 {
   margin-bottom: 400px;
+}
+
+.alert-info {
+  color:black;
 }
