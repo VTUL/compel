@@ -62,6 +62,11 @@ en:
     product_name: COMPEL
     product_twitter_handle: "@SamveraRepo"
   simple_form:
+    hints:
+      defaults:
+        creator: "The composer of the original piece."
+        subject: "The instruments used to create/perform the piece."
+        contributor: "The performers who participated in this performance."
     labels:
       defaults:
         resource_type: Genre

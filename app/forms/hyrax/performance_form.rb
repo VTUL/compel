@@ -15,8 +15,8 @@ module Hyrax
     # composition, instruments, description, duration,
     # tags, genre, medium 
     def primary_terms
-      [:creator, :title, :venue, :date, :date_created, :contributor,
-       :composition_id, :subject, :description, :duration, :keyword,
+      [:creator, :title, :subject, :contributor, :venue, :date, :date_created,
+       :composition_id, :description, :duration, :keyword,
        :resource_type, :medium, :related_url]
     end
     
