@@ -15,6 +15,7 @@ module HyraxHelper
       text = field
     end
 
+    text = Loofah.fragment(text).scrub!(:whitewash).to_s
     text = truncate(text, length: 100, separator: ' ', escape: false) if truncate
 
     # this block is only executed when a link is inserted;
