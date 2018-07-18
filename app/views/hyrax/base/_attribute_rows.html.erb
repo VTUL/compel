@@ -1,5 +1,5 @@
-<%= presenter.attribute_to_html(:creator, render_as: :faceted, html_dl: true) %>
-<%= presenter.attribute_to_html(:contributor, render_as: :faceted, html_dl: true) %>
+<%= presenter.attribute_to_html(:creator, render_as: :email_faceted, html_dl: true, emails: @creator_emails) %>
+<%= presenter.attribute_to_html(:contributor, render_as: :email_faceted, html_dl: true, emails: @contributor_emails) %>
 <%= presenter.attribute_to_html(:venue, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted, html_dl: true) %>
 <%= presenter.attribute_to_html(:date, render_as: :linked, search_field: 'date_tesim', html_dl: true) %>
@@ -11,3 +11,4 @@
 <%= presenter.attribute_to_html(:technical_specs, html_dl: true) %>
 <%= presenter.attribute_to_html(:program_notes, html_dl: true) %>
 <%= presenter.attribute_to_html(:related_url, render_as: :external_link, html_dl: true) %>
+
