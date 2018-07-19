@@ -10,10 +10,6 @@ module Hyrax
     self.required_fields = [:title, :subject, :creator, 
                             :contributor]
 
-    # composer, title, venue, date of performance, 
-    # date of composition creation, performers, 
-    # composition, instruments, description, duration,
-    # tags, genre, medium 
     def primary_terms
       [:creator, :title, :subject, :contributor, :venue, :date, :date_created,
        :composition_id, :description, :duration, :keyword,
