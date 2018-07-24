@@ -5,6 +5,7 @@ en:
       fields:
         facet:
           based_near_label_sim: Location
+          human_readable_type_sim: Type
           creator_sim: Composer
           contributor_sim: Performer
           venue_sim: Venue
@@ -19,6 +20,7 @@ en:
           duration_sim: Duration
         index:
           based_near_tesim: Location
+          human_readable_type_tesim: Type
           contributor_tesim: Contributor
           creator_tesim: Composer
           contributor_tesim: Performer

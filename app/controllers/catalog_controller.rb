@@ -41,7 +41,7 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 2
+    config.add_facet_field solr_name("human_readable_type", :facetable), limit: 2
     config.add_facet_field solr_name("resource_type", :facetable), limit: 5
     config.add_facet_field solr_name("creator", :facetable), limit: 5
     config.add_facet_field solr_name("contributor", :facetable), limit: 5
@@ -66,6 +66,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: 'name', if: false
+    config.add_index_field solr_name("human_readable_type", :stored_searchable), link_to_search: solr_name("human_readable_type", :facetable)
     config.add_index_field solr_name("creator", :stored_searchable),link_to_search: solr_name("creator", :facetable)
     config.add_index_field solr_name("contributor", :stored_searchable), link_to_search: solr_name("contributor", :facetable)
     config.add_index_field solr_name("venue", :stored_searchable), link_to_search: solr_name("venue", :facetable)
