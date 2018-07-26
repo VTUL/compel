@@ -1,11 +1,7 @@
-<% if !composition.nil? %>
-  <h2>Composition</h2>
-  <div>
-    <strong>Performance of:</strong> <%= link_to "#{composition.title.first}", "/concern/compositions/#{composition.id}" %>
-  </div>
-  <div>
-    <strong>Composed by:</strong> <span class="composition-composer"><%= link_to composition.creator.first, composer_link %></span>
-  </div>
-  <br />
-<% end %>
-
+<dt>Associated Composition:</dt>
+<dd>
+  <strong>Performance of:</strong> <%= link_to "#{composition.title.first}", "/concern/compositions/#{composition.id}" %>
+</dd>
+<dd>
+  <strong>Composed by:</strong> <span class="composition-composer"><%= link_to composition.creator.first, composer_link %></span>
+</dd>
