@@ -16,6 +16,9 @@ footer.site-footer {
   }
   .logo {
     display: block;
+    a {
+      text-decoration: none;
+    }
     img {
       max-width: 477px;
       width: 100%;
@@ -34,4 +37,9 @@ footer.site-footer ul.nav li.active > a {
 footer.site-footer ul.nav li.active > a:hover {
   color: #555;
   background-color: $red
+}
+.sopa {
+  font-family: "Source Sans Pro",sans-serif;
+  color: white;
+  font-size: 24px;
 }
