@@ -53,3 +53,8 @@ nav#masthead, .dashboard nav#masthead {
     font-size: 20px;
   }
 }
+@media(min-width: 993px) {
+  .dashboard #content-wrapper {
+    margin-top: 50px;
+  }
+}
