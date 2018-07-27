@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
 
 
   protect_from_forgery with: :exception
+
+  helper_method :show_menu?
+  def show_menu?
+    !request.original_url.include?('dashboard') && !request.original_url.include?('concern')
+  end
 end
