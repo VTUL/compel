@@ -18,10 +18,34 @@
       <div class="panel-body">
         <div class="row">
           <%= render 'workflow_actions_widget', presenter: @presenter %>
-            <div class="col-sm-12">
-              <%= render 'representative_media', presenter: @presenter, viewer: @presenter.universal_viewer? %>
-            </div>
-          <div class="col-sm-3 text-center">
+            <% if !@presenter.representative_presenter.audio? %>
+              <div class="col-sm-12">
+                <%= render 'representative_media', presenter: @presenter, viewer: @presenter.universal_viewer? %>
+              </div>
+            <% end %>
+            <% if !@audio_files.blank? %>
+              <div class="col-sm-12">
+                <h2 class="audio_header">Audio</h2>
+                <%= render 'audio_media', presenter: @audio_presenter %>
+                <% if @audio_files.length > 1 %>
+                  <h3>Play files:</h3>
+                  <ul id="compel-audio-controls">
+                    <% @audio_files.each do |file| %>
+                      <li>
+                        <a href="#" class="play-trigger" data-audio_id="<%= file[:id] %>"><%= file[:name] %></a> | 
+                        <%= link_to t('hyrax.file_set.show.downloadable_content.audio_link'),
+                              "/downloads/#{file[:id]}",
+                              data: { turbolinks: false, label: file[:id] },
+                              target: :_blank,
+                              class: "file_download" %>
+                      </li>
+                    <% end %>
+                  </ul>
+                  <hr />
+                <% end %>
+              </div>
+            <% end %> 
+         <div class="col-sm-3 text-center">
             <%= render 'citations', presenter: @presenter %>
             <%= render 'social_media' %>
           </div>
@@ -51,3 +75,8 @@
     </div>
   </div>
 </div>
+<% if @audio_files.length > 1 %>
+  <script>
+    AudioHelper.init();
+  </script>
+<% end %>

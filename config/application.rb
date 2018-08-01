@@ -26,6 +26,7 @@ module Compel
       Hyrax::Dashboard::ProfilesController.prepend Hyrax::Dashboard::ProfilesControllerOverride
       Hyrax::PagesController.prepend Hyrax::PagesControllerOverride
       MultiValueInput.prepend MultiValueInputOverride
+      Hyrax::WorksControllerBehavior.prepend Hyrax::WorksControllerBehaviorOverride
     end
   end
 end
