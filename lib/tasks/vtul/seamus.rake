@@ -194,5 +194,11 @@ namespace :seamus do
       work.duration = nil
       work.save!
     end
+
+    if work.admin_set_id.nil?
+      puts "Setting admin_set_id to 'admin_set/default' for work id: " + work.id
+      work.admin_set_id = "admin_set/default"
+      work.save!
+    end
   end
 end

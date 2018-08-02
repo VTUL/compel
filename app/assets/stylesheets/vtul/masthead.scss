@@ -25,16 +25,36 @@ nav#masthead, .dashboard nav#masthead {
     margin-top: 25px;
   }
 }
-@media (max-width: 992px) {
-  nav#masthead {
+@media(max-width: 500px) {
+  nav#masthead, .dashboard nav#masthead {
+    height: 253px;
+  }
+}
+@media(max-width: 768px) {
+  .dashboard #content-wrapper {
+    margin-top: 0px;
+  }
+}
+@media(min-width: 768px) and (max-width: 992px) {
+  .dashboard #content-wrapper {
+    margin-top: 140px;
+  }
+}
+@media(min-width: 501px) and (max-width: 992px) {
+  nav#masthead, .dashboard nav#masthead {
     height: 190px;
   }
 }
 @media(min-width: 993px) and (max-width: 1062px) {
-  nav#masthead .home-header h1 {
+  nav#masthead .home-header h1, .dashboard nav#masthead .home-header h1 {
     font-size: 50px;
   }
-  nav#masthead .home-header h2 {
+  nav#masthead .home-header h2, .dashboard nav#masthead .home-header h2 {
     font-size: 20px;
+  }
+}
+@media(min-width: 993px) {
+  .dashboard #content-wrapper {
+    margin-top: 50px;
   }
 }

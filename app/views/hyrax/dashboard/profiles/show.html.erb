@@ -15,7 +15,7 @@
       <div class="list-group col-md-5 col-sm-8">
 
         <%# COMPEL Modification: begin %>
-        <%= @user.personal_statement.html_safe if @user.personal_statement %>
+        <%= link_to_html(@user.personal_statement) if @user.personal_statement %>
         <%# COMPEL Modification: end %>
 
         <%= render "hyrax/users/vitals", user: @user %>

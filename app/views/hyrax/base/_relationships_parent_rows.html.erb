@@ -3,6 +3,7 @@
   <%= render("performance_composition_info", presenter: @presenter,
              composition: @composition, composer_link: @composer_link) if controller_name == "performances" %>
 <% end %>
+
 <%# Render presenters which aren't specified in the 'presenter_types' %>
 <% presenter.grouped_presenters(except: presenter.presenter_types).each_pair do |model_name, items| %>
   <%= render 'relationships_parent_row', type: model_name, items: items, presenter: presenter %>
@@ -15,6 +16,7 @@
   <% end %>
 <% end %>
 
-<% if current_user %>
-<%= presenter.attribute_to_html(:admin_set, render_as: :faceted, html_dl: true) %>
+<%# COMPEL removes administrative set functionality -%>
+<% if Flipflop.assign_admin_set? %>
+  <%= presenter.attribute_to_html(:admin_set, render_as: :faceted, html_dl: true) %>
 <% end %>
