@@ -28,6 +28,13 @@ nav#masthead, .dashboard nav#masthead {
 @media(max-width: 500px) {
   nav#masthead, .dashboard nav#masthead {
     height: 253px;
+    .container-fluid {
+      padding-right: 0;
+      padding-left: 0;
+    }
+    .home-header {
+     text-align: center;
+    }
   }
 }
 @media(max-width: 768px) {

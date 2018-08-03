@@ -9,6 +9,9 @@
   #search-submit-header {
     background-color: white;
   }
+  button {
+    z-index: 1000;
+  }
   input, button {
     height: 30px;
     border: none;

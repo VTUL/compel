@@ -239,6 +239,9 @@
 
 }
 @media (max-width: 768px) {
+  #hero {
+    height: 300px;
+  }
   #hero-bg-text h1 {
     font-size: 115px;
   }
@@ -263,5 +266,22 @@
   #hero-highlighted-text {
     top: 155px;
     left: 65px;
+  }
+}
+@media (max-width: 500px) {
+  #hero-bg-text h1 {
+    font-size: 80px;
+  }
+  #hero-fg-text {
+    h2 {
+      font-size: 25px;
+    }
+  }
+  #hero-highlighted-text {
+    top: 155px;
+    left: 50px;
+    p {
+      font-size: 15px;
+    }
   }
 }
