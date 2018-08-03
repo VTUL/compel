@@ -42,6 +42,14 @@
                     <% end %>
                   </ul>
                   <hr />
+
+                <% else %>
+                  <%= link_to t('hyrax.file_set.show.downloadable_content.audio_link'),
+                    hyrax.download_path(@audio_presenter),
+                    data: { turbolinks: false, label: @audio_presenter.id },
+                    target: :_blank,
+                    id: "file_download" %>
+
                 <% end %>
               </div>
             <% end %> 
