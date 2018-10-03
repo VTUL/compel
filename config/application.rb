@@ -17,11 +17,6 @@ module Compel
 
     # Overrides
     config.to_prepare do
-
-      # TEMP Solution for LIBTD-1418
-      Hyrax::CollectionType.const_set('USER_COLLECTION_DEFAULT_TITLE','User Collection')
-      Hyrax::CollectionType.const_set('ADMIN_SET_DEFAULT_TITLE','Admin Set')
-
       Hyrax::HomepageController.prepend Hyrax::HomepageControllerOverride
       Hyrax::Dashboard::ProfilesController.prepend Hyrax::Dashboard::ProfilesControllerOverride
       Hyrax::PagesController.prepend Hyrax::PagesControllerOverride
