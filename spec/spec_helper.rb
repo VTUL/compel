@@ -11,6 +11,35 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
+
+require File.expand_path('../../config/environment', __FILE__)
+require 'rspec/rails'
+require 'capybara/rspec'
+require 'factory_bot'
+require 'capybara/rails'
+require 'selenium-webdriver'
+require 'database_cleaner'
+require 'active_fedora/cleaner'
+
+# @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
+#       container build environments to mitigate Meltdown/Spectre
+#       vulnerabilities, at which point Hyrax could no longer use the
+#       Capybara-provided :selenium_chrome_headless driver (which does not
+#       include the `--no-sandbox` argument).
+Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << '--headless'
+  browser_options.args << '--disable-gpu'
+  browser_options.args << '--no-sandbox'
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
+
+Capybara.default_driver = :rack_test # This is a faster driver
+Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
+Capybara.default_max_wait_time = 15
+
+ActiveJob::Base.queue_adapter = :test
+
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -46,7 +75,7 @@ RSpec.configure do |config|
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
-=begin
+
   # This allows you to limit a spec run to individual examples or groups
   # you care about by tagging them with `:focus` metadata. When nothing
   # is tagged with `:focus`, all examples get run. RSpec also provides
@@ -57,7 +86,7 @@ RSpec.configure do |config|
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options. We recommend
   # you configure your source control system to ignore this file.
-  config.example_status_persistence_file_path = "spec/examples.txt"
+  config.example_status_persistence_file_path = "tmp/spec/examples.txt"
 
   # Limits the available syntax to the non-monkey patched syntax that is
   # recommended. For more details, see:
@@ -92,5 +121,20 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
-=end
+
+  config.use_transactional_fixtures = false
+
+  config.before :suite do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before do |example|
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    ActiveFedora::Cleaner.clean!
+    DatabaseCleaner.clean
+  end
 end
