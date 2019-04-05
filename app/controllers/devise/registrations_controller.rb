@@ -8,6 +8,9 @@ class Devise::RegistrationsController < DeviseController
 
   # GET /resource/sign_up
   def new
+    redirect_to root_path, :flash => { :notice => "Sorry. No new registrations at this time." }
+    return
+
     build_resource
     yield resource if block_given?
     respond_with resource
