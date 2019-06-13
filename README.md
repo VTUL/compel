@@ -1,24 +1,77 @@
-# README
+# COMPEL
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+COMPEL is an online repository based on the Samvera/Fedora/Solr software stack intended to facilitate the preservation, discovery, and sharing of, as well as collaboration on electronic-acoustic music.
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-* System dependencies
+### Prerequisites
 
-* Configuration
+COMPEL is a Ruby on Rails application that relies on the Samvera Hyrax collection of gems. It also leverages the Fedora triple-store, Solr for indexing and search functionality, and FITS for file characterization.
 
-* Database creation
+* Hyrax:
+  - https://hyrax.samvera.org/ 
+  - https://github.com/samvera/hyrax
 
-* Database initialization
+* Fedora: https://duraspace.org/fedora/
 
-* How to run the test suite
+* Solr: https://lucene.apache.org/solr/
 
-* Services (job queues, cache servers, search engines, etc.)
+* FITS: https://projects.iq.harvard.edu/fits/home
 
-* Deployment instructions
+If you would like to use VT's InstallScript tools then you will need:
 
-* ...
+* Vagrant: https://www.vagrantup.com/
+
+* Ansible: https://www.ansible.com/
+
+* Virtualbox: https://www.virtualbox.org/
+
+### Installing
+
+The easiest way to install COMPEL is to use the `InstallScripts` tool developed by University Libraries at Virginia Tech. https://github.com/VTUL/InstallScripts
+
+Clone the repo to your preferred location and begin by creating `ansible/site_secrets.yml` based on `ansible/example_site_secrets.yml` and editing it.
+
+Set the project_name to "compel" on line 7
+`project_name: 'compel'`
+
+Set the application environment to either development or production on line 11
+`project_app_env: 'development'`
+
+If running in production you must generate a secret_key_base` which can be added on line 15
+```
+# Rails "secret_key_base:" setting in config/secrets.yml.
+# This MUST be set here if {{ project_app_env }} is set to "production"
+# it can be generated using `openssl rand -hex 64`
+project_secret_key_base: '<generated value>'
+```
+
+Set ansible_user to "vagrant" on line 166 and uncomment the entire line.
+`ansible_user: 'vagrant'`
+
+From the Installscripts root directory run `vagrant up` to create a new VM and provision it with the dependencies necessary to run and serve COMPEL.
+
+
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://github.com/VTUL/compel/blob/LIBTD-1805/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/VTUL/compel/tags). 
+
+## Authors
+
+* **Yinlin Chen @yinlinchen**
+* **Lee Hunter @whunter**
+* **Tingting Jiang @tingtingjh**
+* **Janice Kim @shabububu**
+* **Paul Mather @pmather**
+
+## License
+
+This project is licensed under the MIT License
+
