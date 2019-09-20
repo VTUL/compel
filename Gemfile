@@ -75,6 +75,8 @@ gem 'pg'
 gem 'sidekiq'
 gem 'hydra-role-management'
 gem "recaptcha"
+gem 'httparty'
+gem 'solrizer'
 
 # Use loofah for HTML sanitization (XSS prevention)
 gem 'loofah', '~> 2.0', '>= 2.0.3'

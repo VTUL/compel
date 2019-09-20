@@ -1,12 +1,16 @@
-<%# Modified from Hyrax Gem 2.1.0 %>
-<nav class="navbar navbar-default navbar-static-top controls-nav" role="navigation">
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
   <div class="container-fluid">
     <div class="row">
-      <div>
-        <%= render '/user_util_links' %>
-        <%= render '/toolbar' %>
-      </div>
-      <%= render '/static_site_links' %>
+      <ul class="nav navbar-nav col-sm-5">
+        <li <%= 'class=active' if current_page?(hyrax.root_path) %>>
+          <%= link_to t(:'hyrax.controls.home'), hyrax.root_path, aria: current_page?(hyrax.root_path) ? {current: 'page'} : nil %></li>
+        <li <%= 'class=active' if current_page?(hyrax.about_path) %>>
+          <%= link_to t(:'hyrax.controls.about'), hyrax.about_path, aria: current_page?(hyrax.about_path) ? {current: 'page'} : nil %></li>
+        <li <%= 'class=active' if current_page?(hyrax.help_path) %>>
+          <%= link_to t(:'hyrax.controls.help'), hyrax.help_path, aria: current_page?(hyrax.help_path) ? {current: 'page'} : nil %></li>
+        <li <%= 'class=active' if current_page?(hyrax.contact_path) %>>
+          <%= link_to t(:'hyrax.controls.contact'), hyrax.contact_path, aria: current_page?(hyrax.contact_path) ? {current: 'page'} : nil %></li>
+      </ul><!-- /.nav -->
     </div>
   </div>
 </nav><!-- /.navbar -->

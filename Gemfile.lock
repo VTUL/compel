@@ -292,6 +292,9 @@ GEM
     hiredis (0.6.3)
     htmlentities (4.3.4)
     http_logger (0.5.1)
+    httparty (0.17.1)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     hydra-access-controls (10.7.0)
       active-fedora (>= 10.0.0)
@@ -731,6 +734,10 @@ GEM
       retriable
       ruby-progressbar
       rubyzip
+    solrizer (4.1.0)
+      activesupport
+      nokogiri
+      xml-simple
     sparql (3.0.2)
       builder (~> 3.2)
       ebnf (~> 1.1)
@@ -806,6 +813,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    xml-simple (1.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     xray-rails (0.3.2)
@@ -821,6 +829,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.6)
   fcrepo_wrapper
+  httparty
   hydra-role-management
   hyrax (= 3.0.0.pre.rc1)
   jbuilder (~> 2.5)
@@ -838,6 +847,7 @@ DEPENDENCIES
   selenium-webdriver
   sidekiq
   solr_wrapper (>= 0.3)
+  solrizer
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
