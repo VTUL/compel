@@ -77,4 +77,4 @@ gem 'hydra-role-management'
 gem "recaptcha"
 
 # Use loofah for HTML sanitization (XSS prevention)
-gem 'loofah', '~> 2.0', '>= 2.0.3'
+gem 'loofah', '~> 2.3'
