@@ -7,6 +7,27 @@ namespace :compel do
     end
   end
 
+  desc 'Add initial users.'
+  task  populate_users: :environment do
+    IO.foreach('user_list.txt') do |email|
+      email = email.strip
+      user = User.new({email: email})
+      user.display_name = email
+      password = SecureRandom.uuid
+      user.password = password
+
+      begin
+        user.save!
+        puts "... User imported to COMPEL: "+user.inspect
+        puts "==========================================="
+        puts "user: "+user.email
+        puts "temp password: "+password
+      rescue ActiveRecord::RecordInvalid => ri_error
+        puts "!!!!! User creation failed: " + ri_error.message
+      end
+    end
+  end
+
   desc 'Upgrade users to admins.'
   task upgrade_users: :environment do
     admin_role = Role.find_by({name: 'admin'})
